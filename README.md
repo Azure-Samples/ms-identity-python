@@ -22,9 +22,13 @@ Choose the package declaration that matches your web framework:
 
 * Django:
 
-      pip install ms_identity_python[django] @ git+https://github.com/azure-samples/ms-identity-python
+      pip install "ms_identity_python[django] @ git+https://github.com/azure-samples/ms-identity-python@0.8"
 
 * Flask:
 
-      pip install ms_identity_python[flask] @ git+https://github.com/azure-samples/ms-identity-python
+      pip install "ms_identity_python[flask] @ git+https://github.com/azure-samples/ms-identity-python@0.8"
+
+* Quart:
+
+      pip install "ms_identity_python[quart] @ git+https://github.com/azure-samples/ms-identity-python@0.8"
 
