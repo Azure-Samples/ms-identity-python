@@ -132,9 +132,12 @@ Read our [docs here](https://identity-library.readthedocs.io/en/latest/)
 This package is [available on PyPI](https://pypi.org/project/identity/).
 Choose the package declaration that matches your web framework:
 
-* Django: `pip install identity[django]`
-* Flask: `pip install identity[flask]`
-* Quart: `pip install identity[quart]`
+Note: Make sure you put "identity[...]" in quotes to ensure it works in all terminals.
+
+* Django: `pip install "identity[django]"`
+* Flask: `pip install "identity[flask]"`
+* Quart: `pip install "identity[quart]"`
+
 
 ## Versions
 
