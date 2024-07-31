@@ -1,1 +1,1 @@
-__version__ = "0.2.0"  # Note: Preferably also modify README.md
+__version__ = "0.9.0"  # Note: Perhaps update ReadTheDocs and README.md too?
