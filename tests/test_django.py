@@ -1,7 +1,7 @@
 from unittest import mock
 
 import pytest
-from identity.django import _parse_redirect_uri, Auth
+from ms_identity_python.django import _parse_redirect_uri, Auth
 
 def test_parse_redirect_uri():
     with pytest.raises(ValueError):

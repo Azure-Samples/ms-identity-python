@@ -1,7 +1,7 @@
 import msal
 import pytest
 from quart import Quart
-from identity.quart import Auth
+from ms_identity_python.quart import Auth
 
 
 @pytest.mark.asyncio
