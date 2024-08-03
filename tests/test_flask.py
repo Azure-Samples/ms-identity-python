@@ -1,5 +1,5 @@
 from flask import Flask
-from ms_identity_python.flask import Auth
+from identity.flask import Auth
 
 
 def test_logout():
