@@ -3,9 +3,9 @@ from functools import partial, wraps
 from inspect import iscoroutinefunction
 import logging
 import os
-from typing import List  # Needed in Python 3.7 & 3.8
+from typing import List, Optional  # Needed in Python 3.7 & 3.8
 from urllib.parse import urlparse
-from .web import WebFrameworkAuth
+from .web import WebFrameworkAuth, Auth
 
 
 logger = logging.getLogger(__name__)
@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 class PalletAuth(WebFrameworkAuth):  # A common base class for Flask and Quart
     _endpoint_prefix = "identity"  # A convention to match the template's folder name
-    _auth = None  # None means not initialized yet
+    _auth: Optional[Auth] = None  # None means not initialized yet
 
     def __init__(self, app, *args, **kwargs):
         if not (
@@ -64,14 +64,14 @@ class PalletAuth(WebFrameworkAuth):  # A common base class for Flask and Quart
 
     def logout(self):
         return self.__class__._redirect(  # self._redirect(...) won't work
-            self._auth.log_out(self._request.host_url))
+            self._auth.log_out(self._request.url_root))
 
     def login_required(  # Named after Django's login_required
         self,
         function=None,
         /,  # Requires Python 3.8+
         *,
-        scopes: List[str]=None,
+        scopes: Optional[List[str]] = None,
     ):
         # With or without brackets. Inspired by https://stackoverflow.com/a/39335652/728675
 
@@ -92,7 +92,7 @@ class PalletAuth(WebFrameworkAuth):  # A common base class for Flask and Quart
                 if context:
                     return await function(*args, context=context, **kwargs)
                 # Save an http 302 by calling self.login(request) instead of redirect(self.login)
-                return await self.login(next_link=self._request.path, scopes=scopes)
+                return await self.login(next_link=self._request.url, scopes=scopes)
         else:  # For Flask
             @wraps(function)
             def wrapper(*args, **kwargs):
@@ -101,9 +101,6 @@ class PalletAuth(WebFrameworkAuth):  # A common base class for Flask and Quart
                 if context:
                     return function(*args, context=context, **kwargs)
                 # Save an http 302 by calling self.login(request) instead of redirect(self.login)
-                return self.login(
-                    next_link=self._request.path,  # https://flask.palletsprojects.com/en/3.0.x/api/#flask.Request.path
-                    scopes=scopes,
-                    )
+                return self.login(next_link=self._request.url, scopes=scopes)
         return wrapper
 
