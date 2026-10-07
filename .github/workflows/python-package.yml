@@ -21,9 +21,9 @@ jobs:
         python-version: [3.8, 3.9, "3.10", 3.11, 3.12]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@7f4fc3e22c37d6ff65e88745f38bd3157c663f7c # v4.9.1
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -59,9 +59,9 @@ jobs:
     permissions:
       id-token: write  # mandatory for trusted publishing
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
     - name: Set up Python 3.9
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@7f4fc3e22c37d6ff65e88745f38bd3157c663f7c # v4.9.1
       with:
         python-version: 3.9
     - name: Build a package for release
@@ -73,11 +73,11 @@ jobs:
         You better test with a1, a2, b1, b2 releases first.
       if: startsWith(github.ref, 'refs/heads/release-')
       # You need to setup Trusted Publisher first
-      uses: pypa/gh-action-pypi-publish@release/v1
+      uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
       with:
         repository-url: https://test.pypi.org/legacy/
     - name: Publish to PyPI
       if: startsWith(github.ref, 'refs/tags')
       # You need to setup Trusted Publisher first
-      uses: pypa/gh-action-pypi-publish@release/v1
+      uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
 
